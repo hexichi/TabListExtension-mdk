@@ -10,6 +10,7 @@ import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.Team;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.server.ServerLifecycleHooks;
@@ -56,8 +57,8 @@ public class TabListEventHandler {
         PlayerTeam netherTeam = scoreboard.getPlayerTeam(TEAM_NETHER);
         if (netherTeam == null) {
             netherTeam = scoreboard.addPlayerTeam(TEAM_NETHER);
-            netherTeam.setColor(ChatFormatting.LIGHT_PURPLE);
-            netherTeam.setPlayerPrefix(net.minecraft.network.chat.Component.literal("[下界] ").withStyle(ChatFormatting.LIGHT_PURPLE));
+            netherTeam.setColor(ChatFormatting.DARK_RED);
+            netherTeam.setPlayerPrefix(net.minecraft.network.chat.Component.literal("[下界] ").withStyle(ChatFormatting.DARK_RED));
         }
         
         // 创建或获取末地团队
@@ -173,5 +174,52 @@ public class TabListEventHandler {
     public void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
         Player player = event.getEntity();
         playerDimensions.remove(player.getUUID());
+    }
+    
+    /**
+     * 监听玩家重生事件
+     * 当玩家死亡重生时更新TAB列表中的名称颜色
+     * @param event 玩家重生事件
+     */
+    @SubscribeEvent
+    public void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        Player player = event.getEntity();
+        if (!(player instanceof ServerPlayer)) return;
+        
+        ServerPlayer serverPlayer = (ServerPlayer) player;
+        ResourceKey<Level> dimension = serverPlayer.level().dimension();
+        UUID playerId = player.getUUID();
+        
+        // 更新缓存
+        playerDimensions.put(playerId, dimension);
+        
+        // 更新玩家团队
+        updatePlayerTeam(serverPlayer, dimension);
+    }
+    
+    /**
+     * 监听实体加入世界事件
+     * 用于捕获通过指令传送的玩家
+     * @param event 实体加入世界事件
+     */
+    @SubscribeEvent
+    public void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer)) return;
+        
+        ServerPlayer player = (ServerPlayer) event.getEntity();
+        ResourceKey<Level> dimension = player.level().dimension();
+        UUID playerId = player.getUUID();
+        
+        // 检查维度是否真的变化了
+        ResourceKey<Level> oldDimension = playerDimensions.get(playerId);
+        if (oldDimension != null && oldDimension.equals(dimension)) {
+            return; // 维度没有变化，不需要更新
+        }
+        
+        // 更新缓存
+        playerDimensions.put(playerId, dimension);
+        
+        // 更新玩家团队
+        updatePlayerTeam(player, dimension);
     }
 }
