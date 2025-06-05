@@ -5,7 +5,7 @@ license="CC-BY-NC-SA-4.0"
 [[mods]] 
 modId="tablistextension" 
 version="1.4"
-displayName="TAB List Extension"
+displayName="TabListExtension"
 authors="hexichi"
 logoFile="icon.png"
 description='''
