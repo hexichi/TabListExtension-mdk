@@ -1,0 +1,24 @@
+# TabListExtension配置文件
+
+[dimensions]
+# 维度颜色和前缀配置
+
+[dimensions.overworld]
+enabled = true
+color = "GREEN"  # 可用颜色: BLACK, DARK_BLUE, DARK_GREEN, DARK_AQUA, DARK_RED, DARK_PURPLE, GOLD, GRAY, DARK_GRAY, BLUE, GREEN, AQUA, RED, LIGHT_PURPLE, YELLOW, WHITE
+
+[dimensions.nether]
+enabled = true
+color = "DARK_RED"
+
+[dimensions.end]
+enabled = true
+color = "DARK_PURPLE"
+
+[dimensions.other]
+enabled = true
+color = "WHITE"
+
+[general]
+# 是否在TAB列表中显示维度前缀
+show_prefix = true

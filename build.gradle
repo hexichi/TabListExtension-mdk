@@ -6,8 +6,8 @@ plugins {
 }
 
 // 修改模组版本和组名
-version = '1.0.0'
-group = 'com.hxc.tab' // 这是你的包名
+version = '1.5.0'
+group = 'com.hxc.tab' // 组名
 
 base {
     archivesName = mod_id
