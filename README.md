@@ -38,7 +38,7 @@
 ### Key Features
 - **Dimension Color Distinction**: Automatically sets different colors for player names in the TAB list based on their current dimension
   - Overworld: Green + "[Overworld]" prefix
-  - Nether: Light Purple + "[Nether]" prefix
+  - Nether: Red + "[Nether]" prefix
   - End: Dark Purple + "[End]" prefix
   - Other dimensions: White + "[Unknown]" prefix（Subsequent version updates will support more dimensions）
 - **Real-time Updates**: When players switch between dimensions, the colors and prefixes in the TAB list update immediately
