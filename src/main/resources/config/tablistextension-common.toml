@@ -22,3 +22,15 @@ color = "WHITE"
 [general]
 # 是否在TAB列表中显示维度前缀
 show_prefix = true
+
+# 是否按维度对玩家进行分组显示
+group_by_dimension = true
+
+# 服务器向客户端发送更新的间隔（以tick为单位，20tick = 1秒）
+update_interval = 10
+
+# 是否显示玩家延迟（ping）
+show_ping = true
+
+# TAB列表的标题文本
+header_text = "玩家列表"

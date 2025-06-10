@@ -2,5 +2,7 @@
   "dimension.tablistextension.overworld": "[主世界] ",
   "dimension.tablistextension.nether": "[下界] ",
   "dimension.tablistextension.end": "[末地] ",
-  "dimension.tablistextension.other": "[未知] "
+  "dimension.tablistextension.other": "[未知] ",
+  "tablist.tablistextension.ping_ms": "ms",
+  "tablist.tablistextension.ping_unknown": "?"
 }

@@ -4,13 +4,16 @@ license="MIT"
 
 [[mods]] 
 modId="tablistextension" 
-version="1.5.0"
+version="2.0.0"
 displayName="TabListExtension"
 authors="hexichi"
 logoFile="icon.png"
 description='''
 扩展TAB列表显示功能.\nExtended TAB list display.
 '''
+
+[[mixins]]
+config="tablistextension.mixins.json"
 
 [[dependencies.tablistextension]]
     modId="forge"

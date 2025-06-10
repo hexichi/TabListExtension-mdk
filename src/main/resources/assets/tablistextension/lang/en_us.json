@@ -2,5 +2,7 @@
   "dimension.tablistextension.overworld": "[Overworld] ",
   "dimension.tablistextension.nether": "[Nether] ",
   "dimension.tablistextension.end": "[End] ",
-  "dimension.tablistextension.other": "[Unknown] "
+  "dimension.tablistextension.other": "[Unknown] ",
+  "tablist.tablistextension.ping_ms": "ms",
+  "tablist.tablistextension.ping_unknown": "?"
 }
