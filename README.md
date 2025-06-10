@@ -1,6 +1,6 @@
 # TAB List Extension 模组描述 / TAB List Extension Mod Description
 
-## 语言
+## 语言/Language
 
 [中文](#cn) / [English](#en)
 
@@ -132,8 +132,7 @@ The mod uses modern architectural design:
 - **v1.3.0**: 初始版本，基于记分板团队系统
 
 ### 贡献 / Contributing
-欢迎提交Issue和Pull Request来改进这个模组。
-Welcome to submit Issues and Pull Requests to improve this mod.
+欢迎提交Issue和Pull Request来改进这个模组。<br>Welcome to submit Issues and Pull Requests to improve this mod.
 
 ### 许可证 / License
 MIT License
