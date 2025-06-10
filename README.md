@@ -128,7 +128,8 @@ The mod uses modern architectural design:
 ## 开发信息 / Development Information
 
 ### 版本历史 / Version History
-- **v1.5.0**: 完全重写架构，采用客户端渲染和事件系统技术
+- **v2.0.0**: 完全重写架构，采用客户端渲染和事件系统技术
+- **v1.5.0**: 引入Forge配置系统，允许动态修改维度前缀和颜色,支持多语言
 - **v1.3.0**: 初始版本，基于记分板团队系统
 
 ### 贡献 / Contributing
