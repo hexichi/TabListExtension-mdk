@@ -123,11 +123,11 @@ The mod uses modern architectural design:
 - 如果问题持续，重启客户端 / If the issue persists, restart the client
 
 #### 模组使用与修改 / Module use and modification
-玩家可以自由的将本模组使用于任何服务器，在遵守本模组开源协议的情况下可以对本模组进行修改。 / Players are free to use this module on any server, and may modify this module in compliance with the open source agreement for this module.
+- 玩家可以自由的将本模组使用于任何服务器，在遵守本模组开源协议的情况下可以对本模组进行修改。 / Players are free to use this module on any server, and may modify this module in compliance with the open source agreement for this module.
 ---
 
 #### 注意事项 / Caveat
-2.0.0版本完全重写了 TAB 列表的渲染系统，拦截了原版 TAB 列表渲染，所以不兼容依赖或修改原版 TAB 列表的模组。 / Version 2.0.0 completely rewrites the TAB list rendering system and intercepts the original TAB list rendering, so it is not compatible with modules that depend on or modify the original TAB list.
+- 2.0.0版本完全重写了 TAB 列表的渲染系统，拦截了原版 TAB 列表渲染，所以不兼容依赖或修改原版 TAB 列表的模组。 / Version 2.0.0 completely rewrites the TAB list rendering system and intercepts the original TAB list rendering, so it is not compatible with modules that depend on or modify the original TAB list.
 ---
 
 ### 技术支持 / Technical Support
