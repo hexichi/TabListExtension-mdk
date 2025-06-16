@@ -6,7 +6,7 @@ plugins {
 }
 
 // 修改模组版本和组名
-version = '2.0.0'
+version = '2.1.0'
 group = 'com.hxc.tab' // 组名
 
 base {

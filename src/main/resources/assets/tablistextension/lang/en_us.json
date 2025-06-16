@@ -4,5 +4,6 @@
   "dimension.tablistextension.end": "[End] ",
   "dimension.tablistextension.other": "[Unknown] ",
   "tablist.tablistextension.ping_ms": "ms",
-  "tablist.tablistextension.ping_unknown": "?"
+  "tablist.tablistextension.ping_unknown": "?",
+  "tablist.tablistextension.page_indicator": "Page %d/%d"
 }

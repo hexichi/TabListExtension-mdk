@@ -26,6 +26,11 @@ public class TabListConfig {
     public static final ForgeConfigSpec.BooleanValue SHOW_PING;
     public static final ForgeConfigSpec.ConfigValue<String> HEADER_TEXT;
     
+    // 分页设置
+    public static final ForgeConfigSpec.IntValue MAX_PLAYERS_PER_PAGE;
+    public static final ForgeConfigSpec.BooleanValue ENABLE_PAGINATION;
+    public static final ForgeConfigSpec.BooleanValue SHOW_PAGE_INDICATOR;
+    
     static {
         BUILDER.comment("TabListExtension配置文件").push("dimensions");
         
@@ -77,13 +82,18 @@ public class TabListConfig {
         
         // 一般设置
         BUILDER.push("general");
-        SHOW_PREFIX = BUILDER.comment("是否在TAB列表中显示维度前缀").define("show_prefix", true);
-        GROUP_BY_DIMENSION = BUILDER.comment("是否按维度对玩家进行分组").define("group_by_dimension", true);
-        UPDATE_INTERVAL = BUILDER.comment("服务器向客户端发送更新的间隔（以tick为单位，20tick = 1秒）").defineInRange("update_interval", 20, 1, 100);
-        SHOW_PING = BUILDER.comment("是否显示玩家延迟").define("show_ping", true);
-        HEADER_TEXT = BUILDER.comment("TAB列表的标题文本，留空则使用默认值").define("header_text", "玩家列表");
-        BUILDER.pop();
+        SHOW_PREFIX = BUILDER.comment("是否在玩家名称前显示维度前缀").define("show_prefix", true);
+        GROUP_BY_DIMENSION = BUILDER.comment("是否按维度分组显示玩家").define("group_by_dimension", true);
+        UPDATE_INTERVAL = BUILDER.comment("玩家信息同步间隔（tick）").defineInRange("update_interval", 10, 1, 100);
+        SHOW_PING = BUILDER.comment("是否显示玩家延迟（ping）").define("show_ping", true);
+        HEADER_TEXT = BUILDER.comment("Tab列表顶部显示的自定义文本").define("header_text", "玩家列表");
         
+        // 分页设置
+        MAX_PLAYERS_PER_PAGE = BUILDER.comment("每页显示的最大玩家数量").defineInRange("max_players_per_page", 80, 5, 100);
+        ENABLE_PAGINATION = BUILDER.comment("是否启用分页功能").define("enable_pagination", true);
+        SHOW_PAGE_INDICATOR = BUILDER.comment("是否显示页面指示器").define("show_page_indicator", true);
+        
+        BUILDER.pop(); // general
         SPEC = BUILDER.build();
     }
     

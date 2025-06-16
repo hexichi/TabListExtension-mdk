@@ -34,3 +34,12 @@ show_ping = true
 
 # TAB列表的标题文本
 header_text = "玩家列表"
+
+# 每页显示的最大玩家数量
+max_players_per_page = 80
+
+# 是否启用分页功能
+enable_pagination = true
+
+# 是否显示页面指示器
+show_page_indicator = true

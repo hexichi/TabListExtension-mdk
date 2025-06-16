@@ -7,54 +7,82 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 /**
  * 服务器事件处理器，负责同步玩家维度信息到客户端
  */
 public class ServerEventHandler {
-    // 用于控制数据同步频率的计数器
     private int tickCounter = 0;
-    private static final int SYNC_INTERVAL = 10; // 以tick为单位，20tick = 1秒
-
-    /**
-     * 服务器tick事件，用于定期同步玩家维度信息
-     */
+    private static final int SYNC_INTERVAL = 10;
+    
+    // 添加数据变化追踪
+    private final Map<String, PlayerDimensionData> lastPlayerData = new HashMap<>();
+    
+    private static class PlayerDimensionData {
+        final String dimension;
+        final int latency;
+        
+        PlayerDimensionData(String dimension, int latency) {
+            this.dimension = dimension;
+            this.latency = latency;
+        }
+        
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof PlayerDimensionData)) return false;
+            PlayerDimensionData other = (PlayerDimensionData) obj;
+            return Objects.equals(dimension, other.dimension) && latency == other.latency;
+        }
+        
+        @Override
+        public int hashCode() {
+            return Objects.hash(dimension, latency);
+        }
+    }
+    
     @SubscribeEvent
     public void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
         
-        // 控制同步频率
         tickCounter++;
         if (tickCounter < SYNC_INTERVAL) return;
         tickCounter = 0;
         
-        // 获取服务器并同步所有玩家信息
         net.minecraft.server.MinecraftServer server = net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer();
         if (server != null) {
             for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-                syncPlayerDimension(player);
+                syncPlayerDimensionIfChanged(player);
             }
+            
+            // 清理已离线玩家的数据
+            Set<String> onlinePlayerNames = server.getPlayerList().getPlayers()
+                .stream().map(p -> p.getGameProfile().getName()).collect(Collectors.toSet());
+            lastPlayerData.keySet().removeIf(name -> !onlinePlayerNames.contains(name));
         }
     }
     
     /**
-     * 同步玩家维度信息到所有客户端
+     * 只在数据变化时同步玩家维度信息
      */
-    private void syncPlayerDimension(ServerPlayer player) {
+    private void syncPlayerDimensionIfChanged(ServerPlayer player) {
+        String playerName = player.getGameProfile().getName();
         String dimension = player.level().dimension().location().getPath();
-        
-        // 使用正确的方法获取延迟
         int latency = player.latency;
         
-        // 创建数据包并发送给所有玩家
-        PlayerDimensionPacket packet = new PlayerDimensionPacket(
-            player.getGameProfile().getName(),
-            dimension,
-            latency
-        );
+        PlayerDimensionData newData = new PlayerDimensionData(dimension, latency);
+        PlayerDimensionData oldData = lastPlayerData.get(playerName);
         
-        PacketHandler.INSTANCE.send(
-            PacketDistributor.ALL.noArg(),
-            packet
-        );
+        // 只在数据变化时发送数据包
+        if (!newData.equals(oldData)) {
+            PlayerDimensionPacket packet = new PlayerDimensionPacket(playerName, dimension, latency);
+            PacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), packet);
+            lastPlayerData.put(playerName, newData);
+        }
     }
 }

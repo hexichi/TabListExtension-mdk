@@ -4,5 +4,6 @@
   "dimension.tablistextension.end": "[末地] ",
   "dimension.tablistextension.other": "[未知] ",
   "tablist.tablistextension.ping_ms": "ms",
-  "tablist.tablistextension.ping_unknown": "?"
+  "tablist.tablistextension.ping_unknown": "?",
+  "tablist.tablistextension.page_indicator": "第 %d/%d 页"
 }
