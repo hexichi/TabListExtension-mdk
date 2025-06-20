@@ -29,7 +29,7 @@ public class ClientDataManager {
         if (oldDimension != null) {
             List<PlayerData> oldDimensionPlayers = playersByDimension.get(oldDimension);
             if (oldDimensionPlayers != null) {
-                oldDimensionPlayers.removeIf(p -> p.getName().equals(playerName));
+                oldDimensionPlayers.removeIf(p -> p.name().equals(playerName));
                 // 如果维度列表为空，移除该维度
                 if (oldDimensionPlayers.isEmpty()) {
                     playersByDimension.remove(oldDimension);
@@ -41,23 +41,7 @@ public class ClientDataManager {
         playersByDimension.computeIfAbsent(dimension, k -> new ArrayList<>()).add(playerData);
         playerToDimension.put(playerName, dimension);
     }
-    
-    /**
-     * 移除玩家 - 优化版本
-     */
-    public static void removePlayer(String playerName) {
-        String dimension = playerToDimension.remove(playerName);
-        if (dimension != null) {
-            List<PlayerData> players = playersByDimension.get(dimension);
-            if (players != null) {
-                players.removeIf(p -> p.getName().equals(playerName));
-                if (players.isEmpty()) {
-                    playersByDimension.remove(dimension);
-                }
-            }
-        }
-    }
-    
+
     /**
      * 清除所有数据 - 优化版本
      */

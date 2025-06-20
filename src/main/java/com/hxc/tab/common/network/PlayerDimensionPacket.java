@@ -1,6 +1,7 @@
 package com.hxc.tab.common.network;
 
 import com.hxc.tab.client.ClientDataManager;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
@@ -40,13 +41,11 @@ public class PlayerDimensionPacket {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
             // 确保只在客户端处理
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                ClientDataManager.updatePlayerDimension(
-                    packet.playerName,
-                    packet.dimension,
-                    packet.latency
-                );
-            });
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientDataManager.updatePlayerDimension(
+                packet.playerName,
+                packet.dimension,
+                packet.latency
+            ));
         });
         context.setPacketHandled(true);
     }

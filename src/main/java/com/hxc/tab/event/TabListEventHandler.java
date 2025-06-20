@@ -2,6 +2,7 @@ package com.hxc.tab.event;
 
 import com.hxc.tab.client.TabListRenderer;
 import com.hxc.tab.TabListExtension;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.PlayerInfo;
@@ -12,6 +13,7 @@ import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Collections;

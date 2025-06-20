@@ -1,6 +1,7 @@
 package com.hxc.tab.common.network;
 
 import com.hxc.tab.TabListExtension;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;

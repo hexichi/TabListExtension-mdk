@@ -2,6 +2,7 @@ package com.hxc.tab;
 
 import com.hxc.tab.common.network.PacketHandler;
 import com.hxc.tab.common.network.PlayerDimensionPacket;
+
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,28 +23,16 @@ public class ServerEventHandler {
     
     // 添加数据变化追踪
     private final Map<String, PlayerDimensionData> lastPlayerData = new HashMap<>();
-    
-    private static class PlayerDimensionData {
-        final String dimension;
-        final int latency;
-        
-        PlayerDimensionData(String dimension, int latency) {
-            this.dimension = dimension;
-            this.latency = latency;
-        }
-        
+
+    private record PlayerDimensionData(String dimension, int latency) {
+
         @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (!(obj instanceof PlayerDimensionData)) return false;
-            PlayerDimensionData other = (PlayerDimensionData) obj;
-            return Objects.equals(dimension, other.dimension) && latency == other.latency;
-        }
-        
-        @Override
-        public int hashCode() {
-            return Objects.hash(dimension, latency);
-        }
+            public boolean equals(Object obj) {
+                if (this == obj) return true;
+                if (!(obj instanceof PlayerDimensionData other)) return false;
+                return Objects.equals(dimension, other.dimension) && latency == other.latency;
+            }
+
     }
     
     @SubscribeEvent

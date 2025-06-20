@@ -1,6 +1,5 @@
 package com.hxc.tab.client;
 
-import com.hxc.tab.client.ClientDataManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;

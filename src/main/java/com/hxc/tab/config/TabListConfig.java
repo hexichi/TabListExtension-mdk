@@ -1,5 +1,7 @@
 package com.hxc.tab.config;
 
+import com.hxc.tab.TabListExtension;
+
 import net.minecraft.ChatFormatting;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -8,8 +10,6 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.hxc.tab.TabListExtension;
 
 @Mod.EventBusSubscriber(modid = TabListExtension.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TabListConfig {
@@ -96,32 +96,25 @@ public class TabListConfig {
         BUILDER.pop(); // general
         SPEC = BUILDER.build();
     }
-    
-    public static class DimensionConfig {
-        public final ForgeConfigSpec.BooleanValue enabled;
-        public final ForgeConfigSpec.ConfigValue<String> color;
-        
-        public DimensionConfig(ForgeConfigSpec.BooleanValue enabled, ForgeConfigSpec.ConfigValue<String> color) {
-            this.enabled = enabled;
-            this.color = color;
-        }
-        
+
+    public record DimensionConfig(ForgeConfigSpec.BooleanValue enabled, ForgeConfigSpec.ConfigValue<String> color) {
+
         public ChatFormatting getChatFormatting() {
-            try {
-                return ChatFormatting.valueOf(color.get());
-            } catch (IllegalArgumentException e) {
-                TabListExtension.LOGGER.warn("Invalid color format: {}, using WHITE as default", color.get());
-                return ChatFormatting.WHITE;
+                try {
+                    return ChatFormatting.valueOf(color.get());
+                } catch (IllegalArgumentException e) {
+                    TabListExtension.LOGGER.warn("Invalid color format: {}, using WHITE as default", color.get());
+                    return ChatFormatting.WHITE;
+                }
+            }
+
+        public int getColor() {
+                ChatFormatting formatting = getChatFormatting();
+                // 使用 Minecraft 内置的颜色值
+                Integer color = formatting.getColor();
+                return color != null ? color : 0xFFFFFF;
             }
         }
-        
-        public int getColor() {
-            ChatFormatting formatting = getChatFormatting();
-            // 使用 Minecraft 内置的颜色值
-            Integer color = formatting.getColor();
-            return color != null ? color : 0xFFFFFF;
-        }
-    }
     
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent.Loading event) {
